@@ -66,15 +66,18 @@ def divide_chunks(l, n):
     ]
 )
 async def update_payment_link(ctx: CommandContext, url: str, is_og: bool):
-    firebase_manager.update_payment_link(url, is_og)
-    embed = Embed(
-        title=f"Successfully updated{' OG ' if is_og else ' '}payment link!",
-        color=webhook_color
-    )
-    embed.add_field(name="New URL", value=url)
-    embed.set_footer(icon_url=webhook_icon, text=webhook_name)
+    if is_allowed(ctx.author.roles):
+        firebase_manager.update_payment_link(url, is_og)
+        embed = Embed(
+            title=f"Successfully updated{' OG ' if is_og else ' '}payment link!",
+            color=webhook_color
+        )
+        embed.add_field(name="New URL", value=url)
+        embed.set_footer(icon_url=webhook_icon, text=webhook_name)
 
-    await ctx.send(embeds=[embed])
+        await ctx.send(embeds=[embed])
+    else:
+        await ctx.send("User is not allowed to run this command")
 
 
 @client.command(

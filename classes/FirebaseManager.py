@@ -170,7 +170,7 @@ class FirebaseManager(metaclass=Singleton):
 
                                 _payment_link = self.db.child("payment_link").get()
 
-                                if _payment_link.val():
+                                if _payment_link.val() and time_difference < 5:
                                     og_url = _payment_link.val()["og"]
                                     new_url = _payment_link.val()["new"]
 

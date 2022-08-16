@@ -1,0 +1,4 @@
+python-dotenv~=0.20.0
+discord-py-slash-command
+dinteractions-Paginator
+Pyrebase4

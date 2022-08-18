@@ -281,15 +281,16 @@ async def end_bank_transfer(ctx: CommandContext, user: Member, paid: bool):
             channel = [
                 c for c in await guild.get_all_channels()
                 if str(c.id) == data["channel_id"]
-            ][0]
+            ]
 
             embed.description = f"<@{str(user.id)}> {'heeft' if paid else 'heeft niet'} de renewal betaald."
-
-            if channel.id != ctx.channel_id:
-                await channel.send(embeds=[embed])
-
             await ctx.send(embeds=[embed])
-            await channel.delete()
+
+            if len(channel) > 0:
+                channel = channel[0]
+
+                await channel.send(embeds=[embed])
+                await channel.delete()
         else:
             embed.description = f"Geen bank overschrijving gevonden voor <@{str(user.id)}>"
             await ctx.send(embeds=[embed])

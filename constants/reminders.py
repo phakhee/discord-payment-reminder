@@ -1,9 +1,7 @@
 REMINDERS = {
     "first_day": {
-        "text": lambda user_id, mentions: f"Het is vandaag renewal dag, <@{user_id}>! {mentions} komt eraan en maakt direc"
-                                          f"t een betaalverzoekje voor je aan. Hierdoor kunnen wij weer lekker snel doo"
-                                          f"rgaan met koken! Weet wel, als het 5 dagen duurt voordat je betaald, moeten"
-                                          f" wij helaas je licentie verwijderen!",
+        "text": lambda user_id, mentions: f"Het is vandaag renewal dag, <@{user_id}>! Je hebt nog 5 dagen om te betalen"
+                                          f", anders moeten wij helaas je licentie verwijderen!",
         "dm_text": lambda user_id, channel_id: f"Het is vandaag renewal dag, <@{user_id}>! Check <#{channel_id}> om te "
                                                f"betalen.",
         "day_difference": 0

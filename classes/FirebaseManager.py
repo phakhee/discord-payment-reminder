@@ -156,9 +156,9 @@ class FirebaseManager(metaclass=Singleton):
 
                                 if time_difference == 0:
                                     info_embed = Embed(color=os.getenv("WEBHOOK_COLOR"))
-                                    info_embed.add_field(name="User", value=user_name)
+                                    info_embed.add_field(name="Gebruiker", value=user_name)
                                     info_embed.add_field(
-                                        name="Renewal date",
+                                        name="Renewal datum",
                                         value=transfer_data["renewal_date"].split("T")[0]
                                     )
                                     info_embed.add_field(name="Is OG", value=is_og)
@@ -176,7 +176,7 @@ class FirebaseManager(metaclass=Singleton):
 
                                     payment_link_embed = Embed(color=os.getenv("WEBHOOK_COLOR"))
                                     payment_link_embed.add_field(
-                                        name="URL",
+                                        name="Betaal link",
                                         value=f"[Klik hier]({og_url if is_og else new_url})"
                                     )
                                     payment_link_embed.set_footer(
@@ -213,7 +213,8 @@ class FirebaseManager(metaclass=Singleton):
                                 await channel.delete()
 
                 log("Bank transfers check done.")
-            except Exception:
+            except Exception as e:
+                log(e)
                 log("Something went wrong getting transfers.")
 
             await asyncio.sleep(60)

@@ -14,6 +14,7 @@ class FirebaseManager(metaclass=Singleton):
     load_dotenv()
 
     def __init__(self):
+        self.started = False
         self.config = {
             "apiKey": os.getenv("FIREBASE_API_KEY"),
             "authDomain": os.getenv("FIREBASE_AUTH_DOMAIN"),
@@ -126,6 +127,7 @@ class FirebaseManager(metaclass=Singleton):
                         if 0 <= time_difference < 6:
                             if not has_channel:
                                 channel = await self.create_channel(current_guild, (user_id, user_name, renewal_date))
+                                log(f"Created channel {str(channel.id)} for {user_name}")
                             else:
                                 channel = [
                                     c for c in await current_guild.get_all_channels()

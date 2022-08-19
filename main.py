@@ -2,6 +2,7 @@ import os
 import asyncio
 from datetime import datetime
 from dotenv import load_dotenv
+from functions.messaging import log
 from classes.FirebaseManager import firebase_manager
 from interactions.ext.paginator import Page, Paginator
 from interactions import Client, Intents, Option, OptionType, CommandContext, Embed, Member
@@ -28,8 +29,14 @@ client = Client(
 @client.event
 async def on_ready():
     print(f"{webhook_name} is online")
-    event_loop = asyncio.get_running_loop()
-    asyncio.ensure_future(firebase_manager.monitor(client), loop=event_loop)
+
+    if not firebase_manager.started:
+        event_loop = asyncio.get_running_loop()
+        asyncio.ensure_future(firebase_manager.monitor(client), loop=event_loop)
+        firebase_manager.started = True
+        log("Started transfers monitoring")
+    else:
+        log("Event loop already started")
 
 
 def is_allowed(user_roles):
